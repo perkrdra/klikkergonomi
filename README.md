@@ -8,7 +8,9 @@ Kjør `python3 -m http.server 8000 --directory public` og åpne http://localhost
 
 ## Hosting
 
-Målet er Cloudflare Workers Static Assets med GitHub-tilkobling til dette repositoryet. Nettsidens filer ligger i `public/`. Cloudflare-konfigurasjon og produksjonsadresse legges til når kontoen er koblet til. Ingen produksjonsutrulling er gjort ennå.
+Nettsidens filer ligger i `public/`. `cloudflare/worker.mjs` leverer de tre filene som tekstmoduler med sikkerhetsheadere, og `cloudflare/metadata.json` angir kompatibilitetsdato og observability. Ved API-publisering sendes Worker-filen som JavaScript-modul, og filene fra `public/` som `text/plain`-moduler med sine originale filnavn. Dette krever ingen pakkeavhengigheter.
+
+Cloudflare Worker: `klikkergonomi`. Produksjonsadresse dokumenteres etter verifisert utrulling. Automatisk publisering fra GitHub er ikke konfigurert; det krever et eget oppsett i Cloudflare Workers Builds eller CI.
 
 ## Demo
 
