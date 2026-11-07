@@ -10,7 +10,7 @@ function render() {
 }
 toggle.addEventListener('click', () => {
   running = !running; previous = null;
-  toggle.textContent = running ? 'Sett på pause' : 'Start demo ↗';
+  toggle.textContent = running ? 'Sett på pause' : 'Start demo +';
   status.textContent = running ? 'Måler i feltet' : 'På pause';
   if (!running) dot.style.display = 'none';
 });
@@ -28,3 +28,29 @@ pad.addEventListener('pointermove', event => {
 pad.addEventListener('pointerleave', () => { previous = null; dot.style.display = 'none'; });
 pad.addEventListener('pointerdown', event => { if (running && event.pointerType === 'mouse') { clicks++; render(); } });
 document.addEventListener('visibilitychange', () => { previous = null; });
+
+// Illustrative data only. No applications or activity are detected by this page.
+const examplePrograms = [
+  {name: 'Microsoft Excel', task: 'Regneark og gjentatte operasjoner', clicks: 2480, distance: 86},
+  {name: 'Nettleser', task: 'Fagsystemer, søk og navigasjon', clicks: 1920, distance: 124},
+  {name: 'Microsoft Outlook', task: 'E-post og kalender', clicks: 1140, distance: 42},
+  {name: 'Microsoft Teams', task: 'Møter og samarbeid', clicks: 680, distance: 28},
+];
+function renderRanking(metric) {
+  const sorted = [...examplePrograms].sort((a, b) => b[metric] - a[metric]);
+  const list = document.querySelector('#ranking-list');
+  list.replaceChildren(...sorted.map((program, index) => {
+    const row = document.createElement('li');
+    const rank = document.createElement('span'); rank.className = 'rank-number'; rank.textContent = `0${index + 1}`;
+    const label = document.createElement('div'); label.className = 'rank-label';
+    const name = document.createElement('strong'); name.textContent = program.name;
+    const task = document.createElement('small'); task.textContent = program.task;
+    label.append(name, task);
+    const value = document.createElement('span'); value.className = 'rank-value';
+    value.textContent = `${program[metric].toLocaleString('nb-NO')} ${metric === 'clicks' ? 'klikk' : 'm'}`;
+    row.append(rank, label, value); return row;
+  }));
+  document.querySelectorAll('[data-rank]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.rank === metric)));
+}
+document.querySelectorAll('[data-rank]').forEach(button => button.addEventListener('click', () => renderRanking(button.dataset.rank)));
+renderRanking('clicks');

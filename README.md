@@ -19,3 +19,7 @@ Demoen teller museknapptrykk og summerer avstand mellom musepekerens posisjoner 
 ## Windows-app (planlagt)
 
 En separat app må bruke Windows-input for å måle på tvers av programmer. Fysisk avstand må anslås fra rå musedata med brukerens kalibrering; skjermpiksler gir ikke fysisk museavstand. Daglige summer, start/pause, datolagring lokalt og tydelig sletting bør inngå i første versjon. Appen er foreløpig ikke implementert. Nettsiden har derfor ingen nedlastingsknapp.
+
+## Programoversikt
+
+Nettsiden viser en sorterbar illustrasjon med fiktive klikk- og metertall per program. Reell Windows-registrering per aktivt program er planlagt, ikke implementert. Aktivitet er ingen helsescore. Helseinnholdet lenker til HSE og OSHA og beskriver mulige belastningsplager og generelle tiltak uten behandlingsløfter.
